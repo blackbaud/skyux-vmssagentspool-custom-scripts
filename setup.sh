@@ -1,3 +1,3 @@
 #!/bin/bash
 
-curl -L https://aka.ms/InstallAzureCli | bash
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
