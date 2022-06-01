@@ -1,15 +1,31 @@
 #!/bin/bash
 
-sudo apt-get update
-sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg
+# To make it easier for build and release pipelines to run apt-get,
+# configure apt to not require confirmation (assume the -y argument by default)
+DEBIAN_FRONTEND=noninteractive
+echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90assumeyes
 
-curl -sL https://packages.microsoft.com/keys/microsoft.asc |
-    gpg --dearmor |
-    sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
+apt-get install -y apt-transport-https && apt-get update && apt-get install -y --no-install-recommends \
+  ca-certificates \
+  curl \
+  jq \
+  git \
+  npm \
+  zip \
+  unzip \
+  iputils-ping \
+  libcurl4 \
+  libicu66 \
+  libunwind8 \
+  netcat \
+  libssl1.0 \
+  gnupg2 \
+  wget \
+  && rm -rf /var/lib/apt/lists/*
 
-AZ_REPO=$(lsb_release -cs)
-echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" |
-    sudo tee /etc/apt/sources.list.d/azure-cli.list
-
-sudo apt-get update
-sudo apt-get install azure-cli
+# Install Node.js LTS
+curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+  && apt-get install -y nodejs \
+  && apt-get install -y build-essential \
+  && rm -rf /var/lib/apt/lists/*
+NODE_OPTIONS=--max_old_space_size=3000
