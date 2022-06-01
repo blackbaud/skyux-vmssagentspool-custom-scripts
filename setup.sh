@@ -5,6 +5,7 @@
 DEBIAN_FRONTEND=noninteractive
 echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90assumeyes
 
+# Install essential packages.
 apt-get install -y apt-transport-https && apt-get update && apt-get install -y --no-install-recommends \
   ca-certificates \
   curl \
@@ -23,9 +24,14 @@ apt-get install -y apt-transport-https && apt-get update && apt-get install -y -
   wget \
   && rm -rf /var/lib/apt/lists/*
 
-# Install Node.js LTS
-curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+# Install Node.js 14.x
+curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
   && apt-get install -y nodejs \
   && apt-get install -y build-essential \
   && rm -rf /var/lib/apt/lists/*
 NODE_OPTIONS=--max_old_space_size=3000
+
+# Install Azure CLI
+curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
+  && rm -rf /var/lib/apt/lists/* \
+  && az extension add -n azure-devops
