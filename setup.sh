@@ -31,6 +31,12 @@ curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
   && rm -rf /var/lib/apt/lists/*
 NODE_OPTIONS=--max_old_space_size=3000
 
+# Change npm's default directory to a hidden directory to avoid using sudo
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+export PATH=~/.npm-global/bin:$PATH
+source ~/.profile
+
 # Install Azure CLI
 curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
   && rm -rf /var/lib/apt/lists/* \
