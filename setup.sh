@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # To make it easier for build and release pipelines to run apt,
-# configure apt to not require confirmation (assume the -y argument by default)
+# configure apt-get to not require confirmation (assume the -y argument by default)
 DEBIAN_FRONTEND=noninteractive
 echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90assumeyes
 
 # Install essential packages.
-apt update && apt install -y apt-transport-https \
+apt-get update && apt-get install -y apt-transport-https \
   ca-certificates \
   curl \
   jq \
@@ -25,8 +25,8 @@ apt update && apt install -y apt-transport-https \
 
 # Install Node.js LTS
 curl -fsSL https://deb.nodesource.com/setup_lts | bash - \
-  && apt install -y nodejs \
-  && apt install -y build-essential
+  && apt-get install -y nodejs \
+  && apt-get install -y build-essential
 NODE_OPTIONS=--max_old_space_size=3000
 
 # Fix npm install speeds
@@ -41,12 +41,12 @@ curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
   && az extension add -n azure-devops
 
 # Install dependencies for Chrome
-apt update && apt install -y sudo apt-get install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
+apt-get update && apt-get install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
 
 # Install Chrome
 wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
   dpkg -i google-chrome-stable_current_amd64.deb && \
-  apt -f install -y && \
+  apt-get -f install -y && \
   rm -f google-chrome-stable_current_amd64.deb
 
 # Install chromedriver
