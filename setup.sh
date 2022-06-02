@@ -24,14 +24,12 @@ sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-g
   netcat \
   libssl1.0 \
   gnupg2 \
-  wget \
-  && rm -rf /var/lib/apt/lists/*
+  wget
 
 # Install Node.js LTS
 curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
   && apt-get install -y nodejs \
   && apt-get install -y build-essential \
-  && rm -rf /var/lib/apt/lists/* \
 NODE_OPTIONS=--max_old_space_size=3000
 
 # Fix npm install speeds
@@ -48,7 +46,6 @@ wget -q https://github.com/mikefarah/yq/releases/download/v4.24.5/yq_linux_amd64
 
 # Install Azure CLI
 curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
-  && rm -rf /var/lib/apt/lists/* \
   && az extension add -n azure-devops
 
 # # Install dependencies for Chrome
@@ -75,8 +72,7 @@ curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
 #   libxext6 \
 #   libxfixes3 \
 #   libxkbcommon0 \
-#   libxrandr2 \
-#   && rm -rf /var/lib/apt/lists/*
+#   libxrandr2
 
 # # Install Chrome
 # wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
