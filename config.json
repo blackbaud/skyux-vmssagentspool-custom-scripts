@@ -1,4 +1,4 @@
 {
-  "fileUris": ["https://raw.githubusercontent.com/blackbaud/skyux-vmssagentspool-custom-scripts/foobar/setup.sh?foo=1"],
+  "fileUris": ["https://raw.githubusercontent.com/blackbaud/skyux-vmssagentspool-custom-scripts/foobar/setup.sh?foo=2"],
   "commandToExecute": "./setup.sh"
 }
