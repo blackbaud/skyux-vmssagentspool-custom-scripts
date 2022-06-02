@@ -30,7 +30,6 @@ sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-g
 curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
   && apt-get install -y nodejs \
   && apt-get install -y build-essential
-NODE_OPTIONS=--max_old_space_size=3000
 
 # Fix npm install speeds
 # See: https://stackoverflow.com/a/39799741/6178885
