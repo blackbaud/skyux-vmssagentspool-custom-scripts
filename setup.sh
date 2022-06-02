@@ -1,12 +1,15 @@
 #!/bin/bash
+set -exo pipefail
 
 # To make it easier for build and release pipelines to run apt,
 # configure apt-get to not require confirmation (assume the -y argument by default)
 DEBIAN_FRONTEND=noninteractive
 echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90assumeyes
 
+sudo apt-get update
+
 # Install essential packages.
-apt-get install -y apt-transport-https && apt-get update && apt-get install -y --no-install-recommends \
+sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-get install -y --no-install-recommends \
   ca-certificates \
   curl \
   jq \
@@ -21,14 +24,12 @@ apt-get install -y apt-transport-https && apt-get update && apt-get install -y -
   netcat \
   libssl1.0 \
   gnupg2 \
-  wget \
-  && rm -rf /var/lib/apt/lists/*
+  wget
 
 # Install Node.js LTS
 curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
   && apt-get install -y nodejs \
-  && apt-get install -y build-essential \
-  && rm -rf /var/lib/apt/lists/*
+  && apt-get install -y build-essential
 NODE_OPTIONS=--max_old_space_size=3000
 
 # Fix npm install speeds
@@ -95,6 +96,6 @@ curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
 #   chmod 755 /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION && \
 #   ln -fs /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION /usr/bin/chromedriver
 
-apt-get update && apt-get install -y --no-install-recommends fonts-liberation libatk-bridge2.0-0 libatk1.0-0 libatspi2.0-0 libcairo2 libcups2 libgbm1 libgtk-3-0 libgtk-4-1 libpango-1.0-0 libxcomposite1 libxdamage1 libxfixes3 libxkbcommon0 libxrandr2 xdg-utils
+sudo apt-get install -y fonts-liberation libatk-bridge2.0-0 libatk1.0-0 libatspi2.0-0 libcairo2 libcups2 libgbm1 libgtk-3-0 libpango-1.0-0 libxcomposite1 libxdamage1 libxfixes3 libxkbcommon0 libxrandr2 xdg-utils
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome*.deb
