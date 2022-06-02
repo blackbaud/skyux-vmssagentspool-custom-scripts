@@ -30,8 +30,8 @@ sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-g
 
 # Install Node.js LTS
 curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
-  && apt-get install -y nodejs \
-  && apt-get install -y build-essential
+  && sudo apt-get install -y nodejs \
+  && sudo apt-get install -y build-essential
 
 # Fix npm install speeds
 # See: https://stackoverflow.com/a/39799741/6178885
