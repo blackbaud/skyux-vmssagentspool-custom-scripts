@@ -46,7 +46,6 @@ wget -q https://github.com/mikefarah/yq/releases/download/v4.24.5/yq_linux_amd64
 
 # Install Azure CLI
 curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
-  && rm -rf /var/lib/apt/lists/* \
   && az extension add -n azure-devops
 
 # # Install dependencies for Chrome
