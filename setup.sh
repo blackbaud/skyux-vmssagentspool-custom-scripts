@@ -46,24 +46,49 @@ curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
   && rm -rf /var/lib/apt/lists/* \
   && az extension add -n azure-devops
 
-# Install Chrome.
-sudo apt-get update
-sudo apt install python-pip
-pip install simplejson
-pip install bs4
-pip install selenium
-sudo apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \
-libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 \
-libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 \
-libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 \
-ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
-wget http://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome*.deb
+# Install dependencies for Chrome
+apt-get update && apt-get install -y --no-install-recommends \
+  fonts-liberation \
+  libasound2 \
+  libatk-bridge2.0-0 \
+  libatk1.0-0 \
+  libatspi2.0-0 \
+  libcairo2 \
+  libcups2 \
+  libdbus-1-3 \
+  libdrm2 \
+  libgbm1 \
+  libglib2.0-0 \
+  libgtk-3-0 \
+  libnspr4 \
+  libnss3 \
+  libpango-1.0-0 \
+  libx11-6 \
+  libxcb1 \
+  libxcomposite1 \
+  libxdamage1 \
+  libxext6 \
+  libxfixes3 \
+  libxkbcommon0 \
+  libxrandr2 \
+  && rm -rf /var/lib/apt/lists/*
 
-# Install chromedriver.
-CHROME_VERSION=$(curl https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-wget https://chromedriver.storage.googleapis.com/$CHROME_VERSION/chromedriver_linux64.zip
-unzip chromedriver_linux64.zip
-sudo mv chromedriver /usr/bin/chromedriver
-sudo chown root:root /usr/bin/chromedriver
-sudo chmod +x /usr/bin/chromedriver
+# Install Chrome
+wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+  dpkg -i google-chrome-stable_current_amd64.deb && \
+  apt -f install -y && \
+  rm -f google-chrome-stable_current_amd64.deb
+
+# Install chromedriver
+CHROME_VERSION="google-chrome-stable" && \
+  CHROME_BIN=$(which google-chrome) && \
+  CHROME_MAJOR_VERSION=$(google-chrome -version | sed -E "s/.* ([0-9]+)(\.[0-9]+){3}.*/\1/") && \
+  CHROME_DRIVER_VERSION=$(wget --no-verbose -O - "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_MAJOR_VERSION}") && \
+  echo "Using chromedriver version: $CHROME_DRIVER_VERSION" && \
+  wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip && \
+  rm -rf /opt/selenium/chromedriver && \
+  unzip /tmp/chromedriver_linux64.zip -d /opt/selenium && \
+  rm /tmp/chromedriver_linux64.zip && \
+  mv /opt/selenium/chromedriver /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION && \
+  chmod 755 /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION && \
+  ln -fs /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION /usr/bin/chromedriver
