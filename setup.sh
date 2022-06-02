@@ -6,7 +6,7 @@ DEBIAN_FRONTEND=noninteractive
 echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90assumeyes
 
 # Install essential packages.
-apt-get update && apt-get install -y apt-transport-https \
+apt-get install -y apt-transport-https && apt-get update && apt-get install -y --no-install-recommends \
   ca-certificates \
   curl \
   jq \
@@ -21,12 +21,14 @@ apt-get update && apt-get install -y apt-transport-https \
   netcat \
   libssl1.0 \
   gnupg2 \
-  wget
+  wget \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install Node.js LTS
-curl -fsSL https://deb.nodesource.com/setup_lts | bash - \
+curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
   && apt-get install -y nodejs \
-  && apt-get install -y build-essential
+  && apt-get install -y build-essential \
+  && rm -rf /var/lib/apt/lists/*
 NODE_OPTIONS=--max_old_space_size=3000
 
 # Fix npm install speeds
@@ -36,17 +38,46 @@ NODE_OPTIONS=--max_old_space_size=3000
 # sudo bash -c 'echo "generateResolvConf = false" >> /etc/wsl.conf'
 # sudo chattr +i /etc/resolv.conf
 
+# Install yq
+wget -q https://github.com/mikefarah/yq/releases/download/v4.24.5/yq_linux_amd64 -O /usr/bin/yq \
+  && chmod +x /usr/bin/yq
+
 # Install Azure CLI
 curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
+  && rm -rf /var/lib/apt/lists/* \
   && az extension add -n azure-devops
 
 # Install dependencies for Chrome
-apt-get update && apt-get install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
+apt-get update && apt-get install -y --no-install-recommends \
+  fonts-liberation \
+  libasound2 \
+  libatk-bridge2.0-0 \
+  libatk1.0-0 \
+  libatspi2.0-0 \
+  libcairo2 \
+  libcups2 \
+  libdbus-1-3 \
+  libdrm2 \
+  libgbm1 \
+  libglib2.0-0 \
+  libgtk-3-0 \
+  libnspr4 \
+  libnss3 \
+  libpango-1.0-0 \
+  libx11-6 \
+  libxcb1 \
+  libxcomposite1 \
+  libxdamage1 \
+  libxext6 \
+  libxfixes3 \
+  libxkbcommon0 \
+  libxrandr2 \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install Chrome
 wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
   dpkg -i google-chrome-stable_current_amd64.deb && \
-  apt-get -f install -y && \
+  apt -f install -y && \
   rm -f google-chrome-stable_current_amd64.deb
 
 # Install chromedriver
