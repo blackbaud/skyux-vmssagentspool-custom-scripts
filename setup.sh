@@ -6,6 +6,8 @@ set -exo pipefail
 DEBIAN_FRONTEND=noninteractive
 echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90assumeyes
 
+sudo apt-get clean
+
 sudo apt-get update
 
 # Install essential packages.
