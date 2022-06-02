@@ -5,7 +5,7 @@
 DEBIAN_FRONTEND=noninteractive
 echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90assumeyes
 
-sudo apt-get update
+apt-get update
 
 # Install essential packages.
 apt-get install -y \
@@ -24,30 +24,27 @@ apt-get install -y \
   netcat \
   libssl1.0 \
   gnupg2 \
-  wget \
-  && rm -rf /var/lib/apt/lists/*
+  wget
 
 # Install Node.js LTS
 curl -fsSL https://deb.nodesource.com/setup_lts | bash - \
   && apt-get install -y nodejs \
-  && apt-get install -y build-essential \
-  && rm -rf /var/lib/apt/lists/*
+  && apt-get install -y build-essential
 NODE_OPTIONS=--max_old_space_size=3000
 
 # Fix npm install speeds
-sudo rm /etc/resolv.conf
-sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
-sudo bash -c 'echo "[network]" > /etc/wsl.conf'
-sudo bash -c 'echo "generateResolvConf = false" >> /etc/wsl.conf'
-sudo chattr +i /etc/resolv.conf
+# sudo rm /etc/resolv.conf
+# sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
+# sudo bash -c 'echo "[network]" > /etc/wsl.conf'
+# sudo bash -c 'echo "generateResolvConf = false" >> /etc/wsl.conf'
+# sudo chattr +i /etc/resolv.conf
 
 # Install Azure CLI
 curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
-  && rm -rf /var/lib/apt/lists/* \
   && az extension add -n azure-devops
 
 # Install dependencies for Chrome
-apt-get update && apt-get install -y --no-install-recommends \
+apt-get update && apt-get install -y \
   fonts-liberation \
   libasound2 \
   libatk-bridge2.0-0 \
@@ -71,8 +68,7 @@ apt-get update && apt-get install -y --no-install-recommends \
   libxext6 \
   libxfixes3 \
   libxkbcommon0 \
-  libxrandr2 \
-  && rm -rf /var/lib/apt/lists/*
+  libxrandr2
 
 # Install Chrome
 wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
