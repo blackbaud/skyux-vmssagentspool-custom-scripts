@@ -32,6 +32,7 @@ curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
 NODE_OPTIONS=--max_old_space_size=3000
 
 # Fix npm install speeds
+# See: https://stackoverflow.com/a/39799741/6178885
 # sudo rm /etc/resolv.conf
 # sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
 # sudo bash -c 'echo "[network]" > /etc/wsl.conf'
@@ -93,3 +94,7 @@ curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
 #   mv /opt/selenium/chromedriver /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION && \
 #   chmod 755 /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION && \
 #   ln -fs /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION /usr/bin/chromedriver
+
+sudo apt-get update
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome*.deb
