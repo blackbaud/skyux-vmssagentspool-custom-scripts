@@ -35,11 +35,11 @@ curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
 
 # Fix npm install speeds
 # See: https://stackoverflow.com/a/39799741/6178885
-# sudo rm /etc/resolv.conf
-# sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
-# sudo bash -c 'echo "[network]" > /etc/wsl.conf'
-# sudo bash -c 'echo "generateResolvConf = false" >> /etc/wsl.conf'
-# sudo chattr +i /etc/resolv.conf
+sudo rm /etc/resolv.conf
+sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
+sudo bash -c 'echo "[network]" > /etc/wsl.conf'
+sudo bash -c 'echo "generateResolvConf = false" >> /etc/wsl.conf'
+sudo chattr +i /etc/resolv.conf
 
 # Install yq (to read yaml files)
 wget -q https://github.com/mikefarah/yq/releases/download/v4.24.5/yq_linux_amd64 -O /usr/bin/yq \
