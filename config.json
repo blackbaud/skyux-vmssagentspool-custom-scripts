@@ -1,4 +1,4 @@
 {
-  "fileUris": ["https://raw.githubusercontent.com/blackbaud/skyux-vmssagentspool-custom-scripts/cache-bust-1/setup.sh"],
+  "fileUris": ["https://raw.githubusercontent.com/blackbaud/skyux-vmssagentspool-custom-scripts/cache-bust-2/setup.sh"],
   "commandToExecute": "./setup.sh"
 }
