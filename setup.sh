@@ -1,15 +1,14 @@
 #!/bin/bash
 
-# To make it easier for build and release pipelines to run apt-get,
+# To make it easier for build and release pipelines to run apt,
 # configure apt to not require confirmation (assume the -y argument by default)
 DEBIAN_FRONTEND=noninteractive
 echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90assumeyes
 
-apt-get update
+apt update
 
 # Install essential packages.
-apt-get install -y \
-  apt-transport-https \
+apt install -y apt-transport-https \
   ca-certificates \
   curl \
   jq \
@@ -28,8 +27,8 @@ apt-get install -y \
 
 # Install Node.js LTS
 curl -fsSL https://deb.nodesource.com/setup_lts | bash - \
-  && apt-get install -y nodejs \
-  && apt-get install -y build-essential
+  && apt install -y nodejs \
+  && apt install -y build-essential
 NODE_OPTIONS=--max_old_space_size=3000
 
 # Fix npm install speeds
@@ -44,8 +43,7 @@ curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
   && az extension add -n azure-devops
 
 # Install dependencies for Chrome
-apt-get update && apt-get install -y \
-  fonts-liberation \
+apt install -y fonts-liberation \
   libasound2 \
   libatk-bridge2.0-0 \
   libatk1.0-0 \
