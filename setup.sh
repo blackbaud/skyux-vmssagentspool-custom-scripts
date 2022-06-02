@@ -9,7 +9,7 @@ echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90assumeyes
 sudo apt-get update
 
 # Install essential packages.
-sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-get install -y --no-install-recommends \
+sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-get install -y \
   ca-certificates \
   curl \
   jq \
