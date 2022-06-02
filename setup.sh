@@ -24,12 +24,14 @@ sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-g
   netcat \
   libssl1.0 \
   gnupg2 \
-  wget
+  wget \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install Node.js LTS
 curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
   && apt-get install -y nodejs \
-  && apt-get install -y build-essential
+  && apt-get install -y build-essential \
+  && rm -rf /var/lib/apt/lists/* \
 NODE_OPTIONS=--max_old_space_size=3000
 
 # Fix npm install speeds
@@ -46,6 +48,7 @@ wget -q https://github.com/mikefarah/yq/releases/download/v4.24.5/yq_linux_amd64
 
 # Install Azure CLI
 curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
+  && rm -rf /var/lib/apt/lists/* \
   && az extension add -n azure-devops
 
 # # Install dependencies for Chrome
@@ -95,6 +98,7 @@ curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
 #   chmod 755 /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION && \
 #   ln -fs /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION /usr/bin/chromedriver
 
+sudo apt-get update
 sudo apt-get install -y fonts-liberation libatk-bridge2.0-0 libatk1.0-0 libatspi2.0-0 libcairo2 libcups2 libgbm1 libgtk-3-0 libpango-1.0-0 libxcomposite1 libxdamage1 libxfixes3 libxkbcommon0 libxrandr2 xdg-utils
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome*.deb
