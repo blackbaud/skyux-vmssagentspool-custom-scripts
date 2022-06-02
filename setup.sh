@@ -64,6 +64,7 @@ apt-get update && apt-get install -y --no-install-recommends \
   libnss3 \
   libpango-1.0-0 \
   libx11-6 \
+  libxcb-dri3-0 \
   libxcb1 \
   libxcomposite1 \
   libxdamage1 \
