@@ -28,8 +28,8 @@ sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-g
   gnupg2 \
   wget
 
-# Install Node.js LTS
-curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+# Install Node.js 14.x
+curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
   && sudo apt-get install -y nodejs \
   && sudo apt-get install -y build-essential
 
