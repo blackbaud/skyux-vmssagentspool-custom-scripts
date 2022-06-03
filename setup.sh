@@ -32,6 +32,12 @@ curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
   && apt-get install -y nodejs \
   && apt-get install -y build-essential
 
+# Fix npm permissions.
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+export PATH=~/.npm-global/bin:$PATH
+source ~/.profile
+
 # Fix npm install speeds
 # See: https://stackoverflow.com/a/39799741/6178885
 sudo rm /etc/resolv.conf
