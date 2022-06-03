@@ -15,7 +15,6 @@ sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-g
   curl \
   jq \
   git \
-  npm \
   zip \
   unzip \
   iputils-ping \
@@ -26,25 +25,6 @@ sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-g
   libssl1.0 \
   gnupg2 \
   wget
-
-# Install Node.js 14.x
-curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
-  && apt-get install -y nodejs \
-  && apt-get install -y build-essential
-
-# Fix npm permissions.
-mkdir ~/.npm-global
-npm config set prefix '~/.npm-global'
-export PATH=~/.npm-global/bin:$PATH
-source ~/.profile
-
-# Fix npm install speeds
-# See: https://stackoverflow.com/a/39799741/6178885
-sudo rm /etc/resolv.conf
-sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
-sudo bash -c 'echo "[network]" > /etc/wsl.conf'
-sudo bash -c 'echo "generateResolvConf = false" >> /etc/wsl.conf'
-sudo chattr +i /etc/resolv.conf
 
 # Install yq (to read yaml files)
 wget -q https://github.com/mikefarah/yq/releases/download/v4.24.5/yq_linux_amd64 -O /usr/bin/yq \
